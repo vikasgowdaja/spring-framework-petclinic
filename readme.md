@@ -24,6 +24,21 @@ cd spring-framework-petclinic
 # For Windows : ./mvnw.cmd jetty:run-war
 ```
 
+On Windows, the Maven Wrapper requires `JAVA_HOME` to point to a JDK installation even if `java` is already available on `PATH`.
+
+PowerShell example for the current session:
+
+```
+$env:JAVA_HOME = "C:\Program Files\Java\jdk-21"
+.\mvnw.cmd jetty:run-war
+```
+
+To persist it for future terminals, set it once and reopen PowerShell:
+
+```
+[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\Program Files\Java\jdk-21", "User")
+```
+
 ### With Docker
 ```
 docker run -p 8080:8080 springcommunity/spring-framework-petclinic

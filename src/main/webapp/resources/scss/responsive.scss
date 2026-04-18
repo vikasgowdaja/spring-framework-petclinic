@@ -7,12 +7,9 @@
   }
 
   .navbar a.navbar-brand {
-    display: block;
-    margin: 0 auto 0 auto;
-    width: 148px;
-    height: 50px;
+    display: inline-flex;
+    margin: 10px auto;
     float: none;
-    background: url("../images/spring-logo-dataflow-mobile.png") 0 center no-repeat;
   }
 
   .homepage-billboard .homepage-subtitle {
@@ -20,8 +17,8 @@
     line-height: 21px;
   }
 
-  .navbar a.navbar-brand span {
-    display: none;
+  .navbar .brand-copy small {
+    font-size: 0.64rem;
   }
 
   .navbar {
@@ -36,6 +33,25 @@
   .index-page--subtitle {
     margin-top: 10px;
     margin-bottom: 30px;
+  }
+
+  .welcome-hero,
+  .brand-panel,
+  .welcome-grid,
+  .app-footer__content {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-hero {
+    padding: 24px;
+  }
+
+  .welcome-hero__actions {
+    flex-direction: column;
+  }
+
+  .app-footer__meta {
+    text-align: left;
   }
 
 }

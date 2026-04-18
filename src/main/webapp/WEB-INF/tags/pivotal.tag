@@ -1,10 +1,23 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<br/>
-<br/>
-<div class="container">
-    <div class="row">
-        <div class="col-12 text-center"><img src="<spring:url value="/resources/images/spring-pivotal-logo.png" htmlEscape="true" />"
-                                             alt="Sponsored by Pivotal"/></div>
+<section class="brand-panel">
+    <div class="brand-panel__copy">
+        <span class="brand-panel__eyebrow">Practice flow</span>
+        <h3>Keep reception, visits, and records aligned.</h3>
+        <p>PetClinic brings owners, pets, visit notes, and veterinarian schedules into one clear workspace.</p>
     </div>
-</div>
+    <div class="brand-panel__highlights">
+        <div class="brand-panel__item">
+            <strong>Owners</strong>
+            <span>Profiles and contact history</span>
+        </div>
+        <div class="brand-panel__item">
+            <strong>Visits</strong>
+            <span>Fast intake and care tracking</span>
+        </div>
+        <div class="brand-panel__item">
+            <strong>Vets</strong>
+            <span>Specialties and availability at a glance</span>
+        </div>
+    </div>
+</section>

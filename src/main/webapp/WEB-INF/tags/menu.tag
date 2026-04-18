@@ -6,7 +6,13 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark" role="navigation">
     <div class="container-fluid">
-        <a class="navbar-brand" href="<spring:url value="/" htmlEscape="true" />"><span></span></a>
+        <a class="navbar-brand" href="<spring:url value="/" htmlEscape="true" />" aria-label="PetClinic home">
+            <span class="brand-mark"><i class="fa fa-paw" aria-hidden="true"></i></span>
+            <span class="brand-copy">
+                <strong>PetClinic</strong>
+                <small>Veterinary Care Workspace</small>
+            </span>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -14,7 +20,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <petclinic:menuItem active="${name eq 'home'}" url="/" title="home page" glyph="fa-home">
-                    <span>Home</span>
+                    <span>Overview</span>
                 </petclinic:menuItem>
 
                 <petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"

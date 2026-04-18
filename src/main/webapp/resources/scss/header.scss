@@ -1,62 +1,91 @@
 .navbar {
-  border-top: 4px solid #6db33f;
-  background-color: #34302d;
+  background: linear-gradient(135deg, #17324d, #0f8b8d 62%, #f28b66 125%);
   margin-bottom: 0px;
-  border-bottom: 0;
-  border-left: 0;
-  border-right: 0;
+  border: 0;
+  box-shadow: 0 18px 42px rgba(23, 50, 77, 0.24);
 }
 
 .navbar a.navbar-brand {
-  background: url("../images/spring-logo-dataflow.png") -1px -1px no-repeat;
-  margin: 12px 0 6px;
-  width: 229px;
-  height: 46px;
-  display: inline-block;
+  margin: 12px 0 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
   text-decoration: none;
   padding: 0;
 }
 
-.navbar a.navbar-brand span {
-  display: block;
-  width: 229px;
+.navbar .brand-mark {
+  width: 46px;
   height: 46px;
-  background: url("../images/spring-logo-dataflow.png") -1px -48px no-repeat;
-  opacity: 0;
-  -moz-transition: opacity 0.12s ease-in-out;
-  -webkit-transition: opacity 0.12s ease-in-out;
-  -o-transition: opacity 0.12s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  color: #17324d;
+  background: linear-gradient(135deg, #f2c14e, #fff4c6);
+  box-shadow: 0 12px 26px rgba(242, 193, 78, 0.28);
+  transition: transform 0.12s ease-in-out;
 }
 
-.navbar a:hover.navbar-brand span {
-  opacity: 1;
+.navbar .brand-copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.navbar .brand-copy strong,
+.navbar .brand-copy small {
+  display: block;
+}
+
+.navbar .brand-copy strong {
+  color: #ffffff;
+  font-family: "montserratregular", sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.03em;
+}
+
+.navbar .brand-copy small {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.navbar a:hover.navbar-brand .brand-mark {
+  transform: translateY(-1px);
 }
 
 .navbar li > a, .navbar-text {
   font-family: "montserratregular", sans-serif;
   text-shadow: none;
   font-size: 14px;
-
-/* line-height: 14px; */
-  padding: 28px 20px;
+  padding: 28px 18px;
   transition: all 0.15s;
-  -webkit-transition: all 0.15s;
-  -moz-transition: all 0.15s;
-  -o-transition: all 0.15s;
-  -ms-transition: all 0.15s;
 }
 
 .navbar li > a {
   text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 999px;
+  margin: 12px 4px;
 }
 
 .navbar .navbar-text {
   margin-top: 0;
   margin-bottom: 0;
 }
+
 .navbar li:hover > a {
-  color: #eeeeee;
-  background-color: #6db33f;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.navbar .nav-link.active,
+.navbar .nav-link.active:hover,
+.navbar .nav-link.active:focus {
+  color: #17324d;
+  background: linear-gradient(135deg, #f2c14e, #ffe199);
 }
 
 .navbar-toggle {
