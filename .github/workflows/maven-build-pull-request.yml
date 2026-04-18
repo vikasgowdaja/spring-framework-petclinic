@@ -20,6 +20,8 @@ jobs:
         java-version: ${{matrix.java}}
         distribution: 'adopt'
         cache: maven
+    - name: Make Maven wrapper executable
+      run: chmod +x ./mvnw
     - name: Build
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
