@@ -15,14 +15,14 @@
 
 $icon-font-path:    "../../webjars/bootstrap/fonts/";
 
-$brand-navy:        #17324d;
-$brand-teal:        #0f8b8d;
-$brand-coral:       #f28b66;
-$brand-gold:        #f2c14e;
-$brand-ink:         #22324a;
-$brand-muted:       #68758a;
-$brand-surface:     #ffffff;
-$brand-soft:        #f6f8fc;
+$brand-navy:        #7a0000;
+$brand-teal:        #c00000;
+$brand-coral:       #ff0000;
+$brand-gold:        #ff3b3b;
+$brand-ink:         #5a0000;
+$brand-muted:       #8a1a1a;
+$brand-surface:     #ffe8e8;
+$brand-soft:        #ffd9d9;
 
 $body-bg:                           $brand-soft;
 $text-color:                        $brand-ink;
@@ -52,9 +52,9 @@ $table-border-color:                      rgba(34, 50, 74, 0.12);
 
 body {
   background:
-    radial-gradient(circle at top left, rgba(242, 193, 78, 0.22), transparent 28%),
-    radial-gradient(circle at top right, rgba(15, 139, 141, 0.14), transparent 30%),
-    linear-gradient(180deg, #fff8ee 0%, #f6f8fc 56%, #eef5ff 100%);
+    radial-gradient(circle at top left, rgba(255, 0, 0, 0.3), transparent 30%),
+    radial-gradient(circle at top right, rgba(204, 0, 0, 0.24), transparent 32%),
+    linear-gradient(180deg, #ffe5e5 0%, #ffd4d4 54%, #ffcccc 100%);
   color: $brand-ink;
   min-height: 100vh;
 }
@@ -69,10 +69,10 @@ a {
 }
 
 .table-filter {
-  background: linear-gradient(135deg, rgba(23, 50, 77, 0.96), rgba(15, 139, 141, 0.88));
+  background: linear-gradient(135deg, rgba(122, 0, 0, 0.95), rgba(255, 0, 0, 0.88));
   padding: 9px 12px;
   border-radius: 18px;
-  box-shadow: 0 18px 32px rgba(23, 50, 77, 0.12);
+  box-shadow: 0 18px 32px rgba(122, 0, 0, 0.25);
 }
 
 .nav > li > a {
@@ -86,7 +86,7 @@ a {
   color: #ffffff;
   background: linear-gradient(135deg, $brand-coral, darken($brand-coral, 6%));
   border-color: transparent;
-  box-shadow: 0 14px 24px rgba(242, 139, 102, 0.28);
+  box-shadow: 0 14px 24px rgba(255, 0, 0, 0.35);
 
   &:hover,
   &:focus,
@@ -97,7 +97,7 @@ a {
     border-color: transparent;
     color: #ffffff;
     transform: translateY(-1px);
-    box-shadow: 0 18px 30px rgba(242, 139, 102, 0.34);
+    box-shadow: 0 18px 30px rgba(255, 0, 0, 0.42);
   }
 }
 
@@ -105,16 +105,16 @@ a {
   margin-top: 12px;
   border-width: 2px;
   color: $brand-navy;
-  background: rgba(255, 255, 255, 0.78);
-  border-color: rgba(23, 50, 77, 0.14);
+  background: rgba(255, 232, 232, 0.9);
+  border-color: rgba(122, 0, 0, 0.24);
   backdrop-filter: blur(8px);
 
   &:hover,
   &:focus,
   &:active {
     color: $brand-navy;
-    background: #ffffff;
-    border-color: rgba(23, 50, 77, 0.22);
+    background: #ffe0e0;
+    border-color: rgba(122, 0, 0, 0.35);
   }
 }
 
@@ -243,19 +243,19 @@ table td.action-column {
 }
 
 hr {
-  border-top: 1px dotted rgba(23, 50, 77, 0.25);
+  border-top: 1px dotted rgba(122, 0, 0, 0.35);
 }
 
 .brand-panel {
   margin-top: 36px;
   padding: 28px 30px;
   border-radius: 28px;
-  background: linear-gradient(135deg, rgba(23, 50, 77, 0.96), rgba(15, 139, 141, 0.9));
-  color: #eef7ff;
+  background: linear-gradient(135deg, rgba(122, 0, 0, 0.96), rgba(255, 0, 0, 0.88));
+  color: #ffeaea;
   display: grid;
   gap: 24px;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  box-shadow: 0 24px 44px rgba(23, 50, 77, 0.18);
+  box-shadow: 0 24px 44px rgba(122, 0, 0, 0.3);
 }
 
 .brand-panel__eyebrow,
@@ -265,7 +265,7 @@ hr {
   padding: 6px 12px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.14);
-  color: #fef3cf;
+  color: #ffe5e5;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -299,7 +299,7 @@ hr {
 
 .brand-panel__item span {
   margin-top: 4px;
-  color: rgba(238, 247, 255, 0.82);
+  color: rgba(255, 230, 230, 0.92);
 }
 
 .welcome-hero {
@@ -309,8 +309,8 @@ hr {
   align-items: center;
   padding: 34px;
   border-radius: 32px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 24px 48px rgba(23, 50, 77, 0.1);
+  background: rgba(255, 226, 226, 0.9);
+  box-shadow: 0 24px 48px rgba(122, 0, 0, 0.2);
   backdrop-filter: blur(8px);
 }
 
@@ -337,7 +337,7 @@ hr {
   position: relative;
   padding: 20px;
   border-radius: 30px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(242, 193, 78, 0.26));
+  background: linear-gradient(135deg, rgba(255, 235, 235, 0.92), rgba(255, 0, 0, 0.24));
 }
 
 .welcome-hero__image-shell::before {
@@ -347,7 +347,7 @@ hr {
   width: 110px;
   height: 110px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(15, 139, 141, 0.22), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 0, 0, 0.24), transparent 70%);
 }
 
 .welcome-hero__image-shell img {
@@ -367,8 +367,8 @@ hr {
 .welcome-card {
   padding: 24px;
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 18px 36px rgba(23, 50, 77, 0.08);
+  background: rgba(255, 225, 225, 0.92);
+  box-shadow: 0 18px 36px rgba(122, 0, 0, 0.16);
 }
 
 .welcome-card__icon {
@@ -381,7 +381,7 @@ hr {
   margin-bottom: 16px;
   font-size: 1.3rem;
   color: $brand-navy;
-  background: linear-gradient(135deg, rgba(242, 193, 78, 0.52), rgba(242, 139, 102, 0.24));
+  background: linear-gradient(135deg, rgba(255, 59, 59, 0.52), rgba(255, 0, 0, 0.3));
 }
 
 .welcome-card p {
@@ -404,9 +404,9 @@ hr {
   align-items: center;
   padding: 22px 24px;
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.76);
+  background: rgba(255, 228, 228, 0.88);
   color: $brand-muted;
-  box-shadow: 0 18px 30px rgba(23, 50, 77, 0.07);
+  box-shadow: 0 18px 30px rgba(122, 0, 0, 0.16);
 }
 
 .app-footer__content strong {

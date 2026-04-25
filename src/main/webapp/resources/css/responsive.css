@@ -1,0 +1,36 @@
+@media (max-width: 768px) {
+  .navbar-toggle {
+    position: absolute;
+    z-index: 9999;
+    left: 0px;
+    top: 0px; }
+  .navbar a.navbar-brand {
+    display: inline-flex;
+    margin: 10px auto;
+    float: none; }
+  .homepage-billboard .homepage-subtitle {
+    font-size: 21px;
+    line-height: 21px; }
+  .navbar .brand-copy small {
+    font-size: 0.64rem; }
+  .navbar {
+    border-top-width: 0; }
+  .xd-container {
+    margin-top: 20px;
+    margin-bottom: 30px; }
+  .index-page--subtitle {
+    margin-top: 10px;
+    margin-bottom: 30px; }
+  .welcome-hero,
+  .brand-panel,
+  .welcome-grid,
+  .app-footer__content {
+    grid-template-columns: 1fr; }
+  .welcome-hero {
+    padding: 24px; }
+  .welcome-hero__actions {
+    flex-direction: column; }
+  .app-footer__meta {
+    text-align: left; } }
+
+/*# sourceMappingURL=../../../../../target/responsive.css.map */
