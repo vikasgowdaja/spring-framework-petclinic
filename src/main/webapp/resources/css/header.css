@@ -2,8 +2,7 @@
   background: linear-gradient(135deg, #7a0000, #ff0000 62%, #ff5a5a 125%);
   margin-bottom: 0px;
   border: 0;
-  box-shadow: 0 18px 42px rgba(122, 0, 0, 0.34);
-}
+  box-shadow: 0 18px 42px rgba(122, 0, 0, 0.34); }
 
 .navbar a.navbar-brand {
   margin: 12px 0 8px;
@@ -11,8 +10,7 @@
   align-items: center;
   gap: 14px;
   text-decoration: none;
-  padding: 0;
-}
+  padding: 0; }
 
 .navbar .brand-mark {
   width: 46px;
@@ -24,79 +22,65 @@
   color: #7a0000;
   background: linear-gradient(135deg, #ff6d6d, #ffd1d1);
   box-shadow: 0 12px 26px rgba(255, 0, 0, 0.32);
-  transition: transform 0.12s ease-in-out;
-}
+  transition: transform 0.12s ease-in-out; }
 
 .navbar .brand-copy {
   display: flex;
   flex-direction: column;
-  line-height: 1.1;
-}
+  line-height: 1.1; }
 
 .navbar .brand-copy strong,
 .navbar .brand-copy small {
-  display: block;
-}
+  display: block; }
 
 .navbar .brand-copy strong {
   color: #ffffff;
   font-family: "montserratregular", sans-serif;
   font-size: 1.2rem;
-  letter-spacing: 0.03em;
-}
+  letter-spacing: 0.03em; }
 
 .navbar .brand-copy small {
   color: rgba(255, 255, 255, 0.82);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
+  text-transform: uppercase; }
 
 .navbar a:hover.navbar-brand .brand-mark {
-  transform: translateY(-1px);
-}
+  transform: translateY(-1px); }
 
 .navbar li > a, .navbar-text {
   font-family: "montserratregular", sans-serif;
   text-shadow: none;
   font-size: 14px;
   padding: 28px 18px;
-  transition: all 0.15s;
-}
+  transition: all 0.15s; }
 
 .navbar li > a {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border-radius: 999px;
-  margin: 12px 4px;
-}
+  margin: 12px 4px; }
 
 .navbar .navbar-text {
   margin-top: 0;
-  margin-bottom: 0;
-}
+  margin-bottom: 0; }
 
 .navbar li:hover > a {
   color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.16);
-}
+  background-color: rgba(255, 255, 255, 0.16); }
 
 .navbar .nav-link.active,
 .navbar .nav-link.active:hover,
 .navbar .nav-link.active:focus {
   color: #7a0000;
-  background: linear-gradient(135deg, #ff8a8a, #ffd9d9);
-}
+  background: linear-gradient(135deg, #ff8a8a, #ffd9d9); }
 
 .navbar-toggle {
-  border-width: 0;
-
-  .icon-bar + .icon-bar {
-    margin-top: 3px;
-  }
-  .icon-bar {
+  border-width: 0; }
+  .navbar-toggle .icon-bar + .icon-bar {
+    margin-top: 3px; }
+  .navbar-toggle .icon-bar {
     width: 19px;
-    height: 3px;
-  }
+    height: 3px; }
 
-}
+/*# sourceMappingURL=../../../../../target/header.css.map */
