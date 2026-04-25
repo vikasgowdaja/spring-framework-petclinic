@@ -17,6 +17,9 @@ variables:
   # Environment name
   environmentName: 'petclinic-1777103169'
 
+  # Public app URL for post-deploy validation
+  webAppUrl: 'https://petclinic-1777103169.azurewebsites.net'
+
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
@@ -58,11 +61,20 @@ stages:
         fi
       displayName: 'Verify WAR CSS is green and not red'
 
+    - script: |
+        set -euo pipefail
+        WAR_PATH="$(Build.SourcesDirectory)/target/petclinic.war"
+        test -f "$WAR_PATH"
+        sha256sum "$WAR_PATH" | tee "$(Build.SourcesDirectory)/target/petclinic.war.sha256"
+      displayName: 'Record WAR checksum'
+
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
       inputs:
         SourceFolder: '$(Build.SourcesDirectory)/target'
-        Contents: 'petclinic.war'
+        Contents: |
+          petclinic.war
+          petclinic.war.sha256
         TargetFolder: $(Build.ArtifactStagingDirectory)
 
     - upload: $(Build.ArtifactStagingDirectory)
@@ -82,6 +94,19 @@ stages:
       runOnce:
         deploy:
           steps:
+          - download: current
+            artifact: drop
+            displayName: 'Download build artifact'
+
+          - script: |
+              set -euo pipefail
+              ARTIFACT_WAR="$(Pipeline.Workspace)/drop/petclinic.war"
+              test -f "$ARTIFACT_WAR"
+              ls -lah "$(Pipeline.Workspace)/drop"
+              sha256sum "$ARTIFACT_WAR"
+              unzip -p "$ARTIFACT_WAR" resources/css/petclinic.css | grep -q '#0b5f2a'
+            displayName: 'Inspect artifact before deploy'
+
           - task: AzureWebApp@1
             displayName: 'Azure Web App Deploy: petclinic-1777103169'
             inputs:
@@ -89,3 +114,24 @@ stages:
               appType: webAppLinux
               appName: $(webAppName)
               package: '$(Pipeline.Workspace)/drop/petclinic.war'
+
+          - script: |
+              set -euo pipefail
+              CSS_URL="$(webAppUrl)/resources/css/petclinic.css"
+              ATTEMPTS=12
+              SLEEP_SECONDS=10
+
+              for i in $(seq 1 $ATTEMPTS); do
+                CSS_CONTENT="$(curl -fsSL "${CSS_URL}?v=$(Build.BuildId)-${i}")"
+                if echo "$CSS_CONTENT" | grep -q '#0b5f2a' && ! echo "$CSS_CONTENT" | grep -Eq '#ff0000|#7a0000'; then
+                  echo "Live CSS verification passed on attempt $i."
+                  exit 0
+                fi
+
+                echo "Live CSS not updated yet (attempt $i/$ATTEMPTS). Retrying..."
+                sleep "$SLEEP_SECONDS"
+              done
+
+              echo "ERROR: Live site is still not serving expected green CSS."
+              exit 1
+            displayName: 'Verify live site serves green CSS'
