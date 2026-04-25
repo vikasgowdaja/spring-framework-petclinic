@@ -46,8 +46,17 @@ stages:
         set -euo pipefail
         WAR_PATH="$(Build.SourcesDirectory)/target/petclinic.war"
         test -f "$WAR_PATH"
-        unzip -p "$WAR_PATH" resources/css/petclinic.css | grep -q '#0b5f2a'
-      displayName: 'Verify green CSS exists in WAR'
+        CSS_CONTENT="$(unzip -p "$WAR_PATH" resources/css/petclinic.css)"
+
+        # Require expected green theme token.
+        echo "$CSS_CONTENT" | grep -q '#0b5f2a'
+
+        # Block deployment if known red theme tokens are present.
+        if echo "$CSS_CONTENT" | grep -Eq '#ff0000|#7a0000'; then
+          echo "ERROR: Red theme tokens detected in WAR CSS."
+          exit 1
+        fi
+      displayName: 'Verify WAR CSS is green and not red'
 
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
