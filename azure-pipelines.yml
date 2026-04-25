@@ -115,14 +115,27 @@ stages:
               appName: $(webAppName)
               package: '$(Pipeline.Workspace)/drop/petclinic.war'
 
+          - task: AzureCLI@2
+            displayName: 'Restart Web App after deploy'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                set -euo pipefail
+                RG_NAME="$(az webapp list --query \"[?name=='$(webAppName)'].resourceGroup | [0]\" -o tsv)"
+                test -n "$RG_NAME"
+                echo "Restarting $(webAppName) in resource group $RG_NAME"
+                az webapp restart --name "$(webAppName)" --resource-group "$RG_NAME"
+
           - script: |
               set -euo pipefail
               CSS_URL="$(webAppUrl)/resources/css/petclinic.css"
-              ATTEMPTS=12
+              ATTEMPTS=36
               SLEEP_SECONDS=10
 
               for i in $(seq 1 $ATTEMPTS); do
-                CSS_CONTENT="$(curl -fsSL "${CSS_URL}?v=$(Build.BuildId)-${i}")"
+                CSS_CONTENT="$(curl -fsSL -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' "${CSS_URL}?v=$(Build.BuildId)-${i}")"
                 if echo "$CSS_CONTENT" | grep -q '#0b5f2a' && ! echo "$CSS_CONTENT" | grep -Eq '#ff0000|#7a0000'; then
                   echo "Live CSS verification passed on attempt $i."
                   exit 0
@@ -133,5 +146,7 @@ stages:
               done
 
               echo "ERROR: Live site is still not serving expected green CSS."
+              echo "Recent token hints from live CSS:"
+              echo "$CSS_CONTENT" | grep -Eo '#0b5f2a|#ff0000|#7a0000' | sort | uniq -c || true
               exit 1
             displayName: 'Verify live site serves green CSS'
