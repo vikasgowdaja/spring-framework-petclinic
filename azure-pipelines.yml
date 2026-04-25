@@ -9,13 +9,13 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '40ff1923-3b02-4b03-b5ce-00f72d6c897e'
+  azureSubscription: 'bc8465fd-0da7-430a-8710-428d38d0ec99'
 
   # Web app name
-  webAppName: 'dt4-myapp-vikas'
+  webAppName: 'petclinic-1777103169'
 
   # Environment name
-  environmentName: 'dt4-myapp-vikas'
+  environmentName: 'petclinic-1777103169'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -67,9 +67,10 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Azure Web App Deploy: dt4-myapp-vikas'
+            displayName: 'Azure Web App Deploy: petclinic-1777103169'
             inputs:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
               appName: $(webAppName)
-              package: '$(Pipeline.Workspace)/drop/**/target/*.?(war|jar)'
+              runtimeStack: 'TOMCAT|10.1-java17'
+              package: '$(Pipeline.Workspace)/drop/**/*.war'
