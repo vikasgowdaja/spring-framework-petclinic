@@ -42,11 +42,18 @@ stages:
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         goals: '-PH2,css clean package'
 
+    - script: |
+        set -euo pipefail
+        WAR_PATH="$(Build.SourcesDirectory)/target/petclinic.war"
+        test -f "$WAR_PATH"
+        unzip -p "$WAR_PATH" resources/css/petclinic.css | grep -q '#0b5f2a'
+      displayName: 'Verify green CSS exists in WAR'
+
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)'
-        Contents: '**/target/*.?(war|jar)'
+        SourceFolder: '$(Build.SourcesDirectory)/target'
+        Contents: 'petclinic.war'
         TargetFolder: $(Build.ArtifactStagingDirectory)
 
     - upload: $(Build.ArtifactStagingDirectory)
@@ -72,4 +79,4 @@ stages:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
               appName: $(webAppName)
-              package: '$(Pipeline.Workspace)/drop/**/target/*.?(war|jar)'
+              package: '$(Pipeline.Workspace)/drop/petclinic.war'
