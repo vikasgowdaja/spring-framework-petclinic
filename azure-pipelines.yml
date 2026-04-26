@@ -17,6 +17,9 @@ variables:
   # Environment name
   environmentName: 'petclinic-1777103169'
 
+  # Public app URL for post-deploy CSS verification
+  webAppUrl: 'https://petclinic-1777103169.azurewebsites.net'
+
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
@@ -49,6 +52,18 @@ stages:
         Contents: '**/target/*.?(war|jar)'
         TargetFolder: $(Build.ArtifactStagingDirectory)
 
+    - script: |
+        set -euo pipefail
+        WAR_PATH="$(Build.SourcesDirectory)/target/petclinic.war"
+        test -f "$WAR_PATH"
+        CSS_CONTENT="$(unzip -p "$WAR_PATH" resources/css/petclinic.css)"
+        echo "$CSS_CONTENT" | grep -q '#0b5f2a'
+        if echo "$CSS_CONTENT" | grep -Eq '#ff0000|#7a0000'; then
+          echo "ERROR: Red theme tokens detected in WAR CSS."
+          exit 1
+        fi
+      displayName: 'Verify WAR CSS before publish'
+
     - upload: $(Build.ArtifactStagingDirectory)
       artifact: drop
 
@@ -73,3 +88,31 @@ stages:
               appType: webAppLinux
               appName: $(webAppName)
               package: '$(Pipeline.Workspace)/drop/**/target/*.?(war|jar)'
+
+          - task: AzureCLI@2
+            displayName: 'Restart Web App after deploy'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                set -euo pipefail
+                RG_NAME="$(az webapp list --query \"[?name=='$(webAppName)'].resourceGroup | [0]\" -o tsv)"
+                test -n "$RG_NAME"
+                az webapp restart --name "$(webAppName)" --resource-group "$RG_NAME"
+
+          - script: |
+              set -euo pipefail
+              CSS_URL="$(webAppUrl)/resources/css/petclinic.css"
+              for i in $(seq 1 18); do
+                CSS_CONTENT="$(curl -fsSL -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' "${CSS_URL}?v=$(Build.BuildId)-${i}")"
+                if echo "$CSS_CONTENT" | grep -q '#0b5f2a' && ! echo "$CSS_CONTENT" | grep -Eq '#ff0000|#7a0000'; then
+                  echo "Live CSS verification passed on attempt $i."
+                  exit 0
+                fi
+                echo "Live CSS not updated yet (attempt $i/18). Retrying..."
+                sleep 10
+              done
+              echo "ERROR: Live site is still serving unexpected CSS."
+              exit 1
+            displayName: 'Verify live site CSS'
