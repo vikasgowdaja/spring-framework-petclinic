@@ -97,8 +97,9 @@ stages:
               scriptLocation: inlineScript
               inlineScript: |
                 set -euo pipefail
-                RG_NAME="$(az webapp list --query \"[?name=='$(webAppName)'].resourceGroup | [0]\" -o tsv)"
+                RG_NAME="$(az resource list --name "$(webAppName)" --resource-type "Microsoft.Web/sites" --query '[0].resourceGroup' -o tsv)"
                 test -n "$RG_NAME"
+                echo "Restarting $(webAppName) in resource group $RG_NAME"
                 az webapp restart --name "$(webAppName)" --resource-group "$RG_NAME"
 
           - script: |
