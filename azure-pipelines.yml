@@ -56,9 +56,8 @@ stages:
         set -euo pipefail
         WAR_PATH="$(Build.SourcesDirectory)/target/petclinic.war"
         test -f "$WAR_PATH"
-        CSS_CONTENT="$(unzip -p "$WAR_PATH" resources/css/petclinic.css)"
-        echo "$CSS_CONTENT" | grep -q '#0b5f2a'
-        if echo "$CSS_CONTENT" | grep -Eq '#ff0000|#7a0000'; then
+        unzip -p "$WAR_PATH" resources/css/petclinic.css | grep -q '#0b5f2a'
+        if unzip -p "$WAR_PATH" resources/css/petclinic.css | grep -Eq '#ff0000|#7a0000'; then
           echo "ERROR: Red theme tokens detected in WAR CSS."
           exit 1
         fi
@@ -107,7 +106,7 @@ stages:
               CSS_URL="$(webAppUrl)/resources/css/petclinic.css"
               for i in $(seq 1 18); do
                 CSS_CONTENT="$(curl -fsSL -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' "${CSS_URL}?v=$(Build.BuildId)-${i}")"
-                if echo "$CSS_CONTENT" | grep -q '#0b5f2a' && ! echo "$CSS_CONTENT" | grep -Eq '#ff0000|#7a0000'; then
+                if grep -q '#0b5f2a' <<< "$CSS_CONTENT" && ! grep -Eq '#ff0000|#7a0000' <<< "$CSS_CONTENT"; then
                   echo "Live CSS verification passed on attempt $i."
                   exit 0
                 fi
